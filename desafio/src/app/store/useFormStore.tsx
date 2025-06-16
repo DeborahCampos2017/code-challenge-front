@@ -92,12 +92,12 @@ export const useFormStore = create<FormStore>((set, get) => ({
     const userData = {
       full_name: personalData.full_name,
       email: personalData.email,
-      phone: personalData.phone.replace(/\D/g, ''),
+      phone: personalData.phone, 
       address: addressData.address,
       number: addressData.number,
       city: addressData.city,
       state: addressData.state,
-      zip_code: addressData.zip_code.replace(/\D/g, ''),
+      zip_code: addressData.zip_code, 
       terms_accepted: terms_accepted,
     };
 
