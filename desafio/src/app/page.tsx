@@ -42,7 +42,7 @@ const RegisterPage = () => {
     <Box
       minH="100vh"
       bg={{ base: "gray.50", md: "gray.100" }}
-      py={{ base: 4, md: 8 }}
+      py={{ base: 4, md: 3 }}
       px={{ base: 4, md: 0 }}
     >
       <Container

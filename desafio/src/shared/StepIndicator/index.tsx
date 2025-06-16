@@ -14,8 +14,6 @@ const StepIndicator = ({ currentStep }: StepIndicatorProps) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const stepSize = useBreakpointValue({ base: "32px", md: "40px" });
   const fontSize = useBreakpointValue({ base: "xs", md: "sm" });
-  const titleMaxW = useBreakpointValue({ base: "60px", md: "80px" });
-  const lineWidth = useBreakpointValue({ base: "40px", md: "60px" });
 
   return (
     <Box mb={{ base: 6, md: 8 }} px={{ base: 2, md: 0 }}>
@@ -23,7 +21,7 @@ const StepIndicator = ({ currentStep }: StepIndicatorProps) => {
         justify="center"
         align="center"
         direction={{ base: "column", sm: "row" }}
-        gap={{ base: 4, sm: 0 }}
+        gap={{ base: 4, sm: 40 }}
       >
         {steps.map((step, index) => (
           <>
@@ -31,7 +29,7 @@ const StepIndicator = ({ currentStep }: StepIndicatorProps) => {
               align="center"
               direction="column"
               position="relative"
-              flex={{ base: "none", sm: "1" }}
+              flex={{ base: "none", sm: "none" }}
               maxW={{ base: "120px", sm: "none" }}
             >
               <Circle
@@ -48,17 +46,13 @@ const StepIndicator = ({ currentStep }: StepIndicatorProps) => {
                 mt={2}
                 fontSize={fontSize}
                 textAlign="center"
-                maxW={titleMaxW}
                 color={currentStep >= step.number ? '#ff4d4d' : 'gray.600'}
                 fontWeight={currentStep >= step.number ? 'semibold' : 'normal'}
-                lineHeight="1.2"
               >
                 {step.title}
               </Text>
               {index < steps.length - 1 && !isMobile && (
                 <Box
-                  w={lineWidth}
-                  h="2px"
                   bg={currentStep > step.number ? '#ff4d4d' : 'gray.300'}
                   mx={2}
                   transition="all 0.3s ease"

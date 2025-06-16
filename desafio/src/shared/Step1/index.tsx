@@ -34,7 +34,7 @@ const Step1 = () => {
               <Field name="full_name">
                 {({ field }: FormikFieldProps) => (
                   <FormControl isInvalid={!!(errors.full_name && touched.full_name)}>
-                    <FormLabel fontSize={{ base: "sm", md: "md" }}>Nome Completo</FormLabel>
+                    <FormLabel fontSize={{ base: "sm", md: "md" }} color="#ff4d4d">Nome Completo</FormLabel>
                     <Input
                       {...field}
                       placeholder="Digite seu nome completo"
@@ -50,7 +50,7 @@ const Step1 = () => {
               <Field name="email">
                 {({ field }: FormikFieldProps) => (
                   <FormControl isInvalid={!!(errors.email && touched.email)}>
-                    <FormLabel fontSize={{ base: "sm", md: "md" }}>Email</FormLabel>
+                    <FormLabel fontSize={{ base: "sm", md: "md" }} color="#ff4d4d">Email</FormLabel>
                     <Input
                       {...field}
                       type="email"

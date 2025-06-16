@@ -5,8 +5,11 @@ import {
   Box,
   FormControl,
   FormErrorMessage,
-  FormLabel, Input, Select,
-  SimpleGrid,
+  FormLabel,
+  Grid,
+  GridItem,
+  Input,
+  Select,
   VStack
 } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
@@ -42,41 +45,48 @@ const Step2 = () => {
         {({ errors, touched, isValid, setFieldValue, values }) => (
           <Form>
             <VStack spacing={{ base: 4, md: 6 }} align="stretch">
-              <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 4, md: 4 }}>
-                <Field name="address">
-                  {({ field }: FormikFieldProps) => (
-                    <FormControl isInvalid={!!(errors.address && touched.address)}>
-                      <FormLabel color="#ff4d4d" fontSize={{ base: "sm", md: "md" }}>Endereço</FormLabel>
-                      <Input
-                        {...field}
-                        placeholder="Digite seu endereço"
-                        size={{ base: "md", md: "lg" }}
-                        fontSize={{ base: "sm", md: "md" }}
-                        _focus={{ borderColor: "#ff4d4d", boxShadow: "0 0 0 1px #ff4d4d" }}
-                        color='black'
-                      />
-                      <FormErrorMessage>{errors.address}</FormErrorMessage>
-                    </FormControl>
-                  )}
-                </Field>
+              <Grid
+                templateColumns={{ base: "1fr", md: "1fr 150px" }}
+                gap={{ base: 4, md: 4 }}
+              >
+                <GridItem>
+                  <Field name="address">
+                    {({ field }: FormikFieldProps) => (
+                      <FormControl isInvalid={!!(errors.address && touched.address)}>
+                        <FormLabel color="#ff4d4d" fontSize={{ base: "sm", md: "md" }}>Endereço</FormLabel>
+                        <Input
+                          {...field}
+                          placeholder="Digite seu endereço"
+                          size={{ base: "md", md: "lg" }}
+                          fontSize={{ base: "sm", md: "md" }}
+                          _focus={{ borderColor: "#ff4d4d", boxShadow: "0 0 0 1px #ff4d4d" }}
+                          color='black'
+                        />
+                        <FormErrorMessage>{errors.address}</FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
+                </GridItem>
 
-                <Field name="number">
-                  {({ field }: FormikFieldProps) => (
-                    <FormControl isInvalid={!!(errors.number && touched.number)}>
-                      <FormLabel color="#ff4d4d" fontSize={{ base: "sm", md: "md" }}>Número</FormLabel>
-                      <Input
-                        {...field}
-                        placeholder="Digite o número"
-                        size={{ base: "md", md: "lg" }}
-                        fontSize={{ base: "sm", md: "md" }}
-                        _focus={{ borderColor: "#ff4d4d", boxShadow: "0 0 0 1px #ff4d4d" }}
-                        color='black'
-                      />
-                      <FormErrorMessage>{errors.number}</FormErrorMessage>
-                    </FormControl>
-                  )}
-                </Field>
-              </SimpleGrid>
+                <GridItem>
+                  <Field name="number">
+                    {({ field }: FormikFieldProps) => (
+                      <FormControl isInvalid={!!(errors.number && touched.number)}>
+                        <FormLabel color="#ff4d4d" fontSize={{ base: "sm", md: "md" }}>Número</FormLabel>
+                        <Input
+                          {...field}
+                          placeholder="Digite o número"
+                          size={{ base: "sm", md: "lg" }}
+                          fontSize={{ base: "sm", md: "md" }}
+                          _focus={{ borderColor: "#ff4d4d", boxShadow: "0 0 0 1px #ff4d4d" }}
+                          color='black'
+                        />
+                        <FormErrorMessage>{errors.number}</FormErrorMessage>
+                      </FormControl>
+                    )}
+                  </Field>
+                </GridItem>
+              </Grid>
               <Field name="city">
                 {({ field }: FormikFieldProps) => (
                   <FormControl isInvalid={!!(errors.city && touched.city)}>
