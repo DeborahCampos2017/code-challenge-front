@@ -15,7 +15,7 @@ export function ColorModeProvider(props: ThemeProviderProps) {
 
 export type ColorMode = "light" | "dark"
 
-export interface UseColorModeReturn {
+export type UseColorModeReturn = {
   colorMode: ColorMode
   setColorMode: (colorMode: ColorMode) => void
   toggleColorMode: () => void

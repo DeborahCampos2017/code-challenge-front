@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 
-interface DeleteUserModalProps {
+type DeleteUserModalProps = {
   isOpen: boolean;
   onClose: () => void;
   user: User;

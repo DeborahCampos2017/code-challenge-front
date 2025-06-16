@@ -10,7 +10,7 @@ import { FormikFieldProps } from '@/app/types';
 import { phoneMask } from '@/shared/Masks';
 import { FormErrors, FormTouched, PersonalDataValues, SetFieldValueFunction } from '../FormTypes';
 
-interface PersonalDataFieldsProps {
+type PersonalDataFieldsProps = {
   errors: FormErrors;
   touched: FormTouched;
   setFieldValue: SetFieldValueFunction;

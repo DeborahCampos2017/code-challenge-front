@@ -2,7 +2,7 @@ import { HStack, IconButton, Td, Tr } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import { User } from "../types";
 
-interface UserTableRowProps {
+type UserTableRowProps = {
   user: User;
   index: number;
   onEdit: (user: User) => void;

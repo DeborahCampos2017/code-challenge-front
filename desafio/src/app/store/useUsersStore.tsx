@@ -1,8 +1,7 @@
-// store/userStore.ts
 import { create } from 'zustand';
 import { User } from '../users/types'; 
 
-interface UserState {
+type UserState = {
   users: User[];
   loading: boolean;
   fetchUsers: () => Promise<void>;
@@ -35,7 +34,7 @@ export const useUserStore = create<UserState>((set) => ({
       ),
     }));
   },
-  
+
   removeUser: (userId) => {
     set((state) => ({
       users: state.users.filter((user) => user.id !== userId),

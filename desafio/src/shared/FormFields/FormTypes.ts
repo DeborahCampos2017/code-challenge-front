@@ -1,4 +1,4 @@
-export type FormErrors= {
+export type FormErrors = {
   full_name?: string;
   email?: string;
   phone?: string;
@@ -10,7 +10,7 @@ export type FormErrors= {
   terms_accepted?: string;
 }
 
-export type FormTouched ={
+export type FormTouched = {
   full_name?: boolean;
   email?: boolean;
   phone?: boolean;
@@ -22,7 +22,7 @@ export type FormTouched ={
   terms_accepted?: boolean;
 }
 
-export type PersonalDataValues ={
+export type PersonalDataValues = {
   full_name: string;
   email: string;
   phone: string;
@@ -36,10 +36,10 @@ export type AddressDataValues = {
   zip_code: string;
 }
 
-export interface TermsValues {
+export type TermsValues = {
   terms_accepted: boolean;
 }
 
-export interface AllFormValues extends PersonalDataValues, AddressDataValues, TermsValues {}
+export type AllFormValues = PersonalDataValues & AddressDataValues & TermsValues;
 
 export type SetFieldValueFunction = (field: string, value: unknown, shouldValidate?: boolean) => void;

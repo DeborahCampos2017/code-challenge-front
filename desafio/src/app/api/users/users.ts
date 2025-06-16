@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-interface UserData {
+type UserData = {
   full_name: string;
   email: string;
   phone: string;
@@ -12,7 +12,7 @@ interface UserData {
   terms_accepted: boolean;
 }
 
-interface ApiResponse {
+type ApiResponse = {
   message?: string;
   data?: UserData;
   error?: string;

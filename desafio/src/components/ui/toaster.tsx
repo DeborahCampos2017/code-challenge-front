@@ -7,7 +7,7 @@ import {
   createStandaloneToast,
 } from "@chakra-ui/react"
 
-interface ToastProps {
+type ToastProps = {
   type?: "loading" | "success" | "error";
   title?: string;
   description?: string;
@@ -15,7 +15,7 @@ interface ToastProps {
   closable?: boolean;
 }
 
-interface ToastComponents {
+type ToastComponents = {
   Root: React.FC<{ children: React.ReactNode; width: string | number | undefined }>;
   Indicator: React.FC;
   Title: React.FC<{ children: React.ReactNode }>;
