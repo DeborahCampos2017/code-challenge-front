@@ -48,6 +48,7 @@ const Step2 = () => {
                     placeholder="Digite seu endereço"
                     focusBorderColor="#ff4d4d"
                     _hover={{ borderColor: '#ff4d4d' }}
+                    color='black'
                   />
                   <FormErrorMessage>{errors.address}</FormErrorMessage>
                 </FormControl>
@@ -63,6 +64,7 @@ const Step2 = () => {
                     placeholder="Digite o número"
                     focusBorderColor="#ff4d4d"
                     _hover={{ borderColor: '#ff4d4d' }}
+                    color='black'
                   />
                   <FormErrorMessage>{errors.number}</FormErrorMessage>
                 </FormControl>
@@ -78,6 +80,7 @@ const Step2 = () => {
                     placeholder="Digite a cidade"
                     focusBorderColor="#ff4d4d"
                     _hover={{ borderColor: '#ff4d4d' }}
+                    color='black'
                   />
                   <FormErrorMessage>{errors.city}</FormErrorMessage>
                 </FormControl>
@@ -89,6 +92,7 @@ const Step2 = () => {
                 <FormControl isInvalid={!!(errors.state && touched.state)}>
                   <FormLabel color="#ff4d4d">Estado</FormLabel>
                   <Select
+                    color='black'
                     {...field}
                     placeholder="Selecione o estado"
                     focusBorderColor="#ff4d4d"
@@ -119,6 +123,7 @@ const Step2 = () => {
                       setFieldValue('zip_code', maskedValue);
                     }}
                     maxLength={9}
+                    color='black'
                   />
                   <FormErrorMessage>{errors.zip_code}</FormErrorMessage>
                 </FormControl>

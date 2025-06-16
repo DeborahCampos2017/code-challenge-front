@@ -38,6 +38,7 @@ const Step1 = () => {
                     placeholder="Digite seu nome completo"
                     focusBorderColor="#ff4d4d"
                     _hover={{ borderColor: '#ff4d4d' }}
+                    color='black'
                   />
                   <FormErrorMessage>{errors.full_name}</FormErrorMessage>
                 </FormControl>
@@ -53,6 +54,7 @@ const Step1 = () => {
                     placeholder="Digite seu email"
                     focusBorderColor="#ff4d4d"
                     _hover={{ borderColor: '#ff4d4d' }}
+                    color='black'
                   />
                   <FormErrorMessage>{errors.email}</FormErrorMessage>
                 </FormControl>
@@ -72,6 +74,7 @@ const Step1 = () => {
                       setFieldValue('phone', maskedValue);
                     }}
                     maxLength={15}
+                    color='black'
                   />
                   <FormErrorMessage>{errors.phone}</FormErrorMessage>
                 </FormControl>

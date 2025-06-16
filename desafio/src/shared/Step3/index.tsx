@@ -1,11 +1,17 @@
 "use client";
 
+import { useFormStore } from '@/app/store/useFormStore';
 import {
-  Box, VStack, Text, Divider, Checkbox, FormControl, useToast
+  Checkbox,
+  Divider,
+  FormControl, useToast,
+  VStack
 } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
-import { useFormStore } from '@/app/store/useFormStore';
 import StepButtons from '../StepButtons';
+import { DataField, DataSection, ErrorMessage } from './DataSection';
+import { Colors, Toast_Config } from './DataSection/utils';
+import { checkboxStyles } from './styles';
 
 const Step3 = () => {
   const router = useRouter();
@@ -25,99 +31,63 @@ const Step3 = () => {
     setCurrentStep(2);
   };
 
+  const showSuccessToast = () => {
+    toast({
+      ...Toast_Config.success,
+      ...Toast_Config.common,
+    });
+  };
+
+  const showErrorToast = (errorMessage?: string) => {
+    toast({
+      ...Toast_Config.error,
+      description: errorMessage || 'Ocorreu um erro ao criar o usuário.',
+      ...Toast_Config.common,
+    });
+  };
+
   const handleFinish = async () => {
     try {
       await submitUser();
-
-      toast({
-        title: 'Cadastro realizado com sucesso!',
-        description: 'Usuário foi criado com sucesso.',
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
-        position: 'top',
-      });
-
+      showSuccessToast();
+      
       setTimeout(() => {
         resetForm();
         router.push('/users');
       }, 1500);
 
     } catch {
-      toast({
-        title: 'Erro no cadastro',
-        description: apiState.errorMessage || 'Ocorreu um erro ao criar o usuário.',
-        status: 'error',
-        duration: 7000,
-        isClosable: true,
-        position: 'top',
-      });
+      showErrorToast(apiState.errorMessage);
     }
   };
 
   return (
     <VStack spacing={6} align="stretch">
-      <Box>
-        <Text fontSize="lg" fontWeight="bold" mb={4} color="#ff4d4d">
-          Dados Pessoais
-        </Text>
-        <VStack align="stretch" spacing={2}>
-          <Text><strong style={{ color: '#DD6B20' }}>Nome Completo:</strong> {personalData.full_name}</Text>
-          <Text><strong style={{ color: '#DD6B20' }}>Email:</strong> {personalData.email}</Text>
-          <Text><strong style={{ color: '#DD6B20' }}>Telefone:</strong> {personalData.phone}</Text>
-        </VStack>
-      </Box>
-
-      <Divider borderColor="#ff4d4d" />
-
-      <Box>
-        <Text fontSize="lg" fontWeight="bold" mb={4} color="#ff4d4d">
-          Endereço
-        </Text>
-        <VStack align="stretch" spacing={2}>
-          <Text><strong style={{ color: '#DD6B20' }}>Endereço:</strong> {addressData.address}</Text>
-          <Text><strong style={{ color: '#DD6B20' }}>Número:</strong> {addressData.number}</Text>
-          <Text><strong style={{ color: '#DD6B20' }}>Cidade:</strong> {addressData.city}</Text>
-          <Text><strong style={{ color: '#DD6B20' }}>Estado:</strong> {addressData.state}</Text>
-          <Text><strong style={{ color: '#DD6B20' }}>CEP:</strong> {addressData.zip_code}</Text>
-        </VStack>
-      </Box>
-      <Divider borderColor="#ff4d4d" />
+      <DataSection title="Dados Pessoais">
+        <DataField label="Nome Completo" value={personalData.full_name} />
+        <DataField label="Email" value={personalData.email} />
+        <DataField label="Telefone" value={personalData.phone} />
+      </DataSection>
+      <Divider borderColor={Colors.primary} />
+      <DataSection title="Endereço">
+        <DataField label="Endereço" value={addressData.address} />
+        <DataField label="Número" value={addressData.number} />
+        <DataField label="Cidade" value={addressData.city} />
+        <DataField label="Estado" value={addressData.state} />
+        <DataField label="CEP" value={addressData.zip_code} />
+      </DataSection>
+      <Divider borderColor={Colors.primary} />
       <FormControl>
         <Checkbox
           isChecked={terms_accepted}
           onChange={(e) => setTermsAccepted(e.target.checked)}
-          sx={{
-            '.chakra-checkbox__control': {
-              _checked: {
-                bg: '#ff4d4d',
-                borderColor: '#ff4d4d',
-                _hover: {
-                  bg: '#ff4d4d',
-                  borderColor: '#ff4d4d',
-                }
-              }
-            }
-          }}
+          sx={checkboxStyles}
           isDisabled={apiState.isLoading}
+          color={Colors.black}
         >
           Aceito os termos e condições
         </Checkbox>
       </FormControl>
-
-      {apiState.isError && (
-        <Box
-          p={4}
-          bg="red.50"
-          borderLeft="4px solid"
-          borderColor="red.500"
-          borderRadius="md"
-        >
-          <Text color="red.700" fontSize="sm">
-            {apiState.errorMessage}
-          </Text>
-        </Box>
-      )}
       <StepButtons
         resetForm={resetForm}
         onBack={handleBack}
@@ -127,6 +97,9 @@ const Step3 = () => {
         isLoading={apiState.isLoading}
         finishButtonText="Finalizar Cadastro"
       />
+      {apiState.isError && (
+        <ErrorMessage message={apiState.errorMessage} />
+      )}
     </VStack>
   );
 };

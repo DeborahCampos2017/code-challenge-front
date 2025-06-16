@@ -36,7 +36,7 @@ const StepButtons = ({
   };
 
   return (
-    <HStack spacing={4} width="100%" justify="center" mt={6}>
+    <HStack spacing={4} width="100%" justify="end" mt={2}>
       <Button
         variant="outline"
         onClick={handleCancel}
