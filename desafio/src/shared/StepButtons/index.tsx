@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, HStack, Spinner } from '@chakra-ui/react';
+import { Box, Button, HStack, Spinner, useBreakpointValue, VStack } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 
 type StepButtonsProps = {
@@ -28,7 +28,14 @@ const StepButtons = ({
   finishButtonText = 'Finalizar Cadastro',
   showBackButton = false,
 }: StepButtonsProps) => {
-  const router = useRouter(); 
+  const router = useRouter();
+  const isMobile = useBreakpointValue({ base: true, md: false });
+  const buttonSize = useBreakpointValue({ base: "md", md: "lg" });
+
+  const ButtonContainer = isMobile ? VStack : HStack;
+  const containerProps = isMobile
+    ? { spacing: 3, width: "100%", align: "end" }
+    : { spacing: 4, width: "100%", justify: "end" };
 
   const handleCancel = () => {
     resetForm();
@@ -36,52 +43,67 @@ const StepButtons = ({
   };
 
   return (
-    <HStack spacing={4} width="100%" justify="end" mt={2}>
-      <Button
-        variant="outline"
-        onClick={handleCancel}
-        isDisabled={isLoading}
-      >
-        Cancelar
-      </Button>
-
-      {showBackButton && onBack && (
+    <Box mt={6} px={{ base: 0, md: 4 }}>
+      <ButtonContainer {...containerProps}>
         <Button
-          onClick={onBack}
+          variant="outline"
+          onClick={handleCancel}
           isDisabled={isLoading}
-          bg="#ff4d4d"
-          color="white"
-          _hover={{ bg: "#e60000" }}
+          size={buttonSize}
+          borderColor="gray.300"
+          _hover={{ borderColor: "gray.400", bg: "gray.50" }}
+          order={{ base: 3, md: 1 }}
         >
-          Voltar
+          Cancelar
         </Button>
-      )}
 
-      {onNext && (
-        <Button
-          type="submit"
-          bg="#ff4d4d"
-          color="white"
-          _hover={{ bg: "#e60000" }}
-          isDisabled={isNextDisabled || isLoading}
-        >
-          {nextButtonText}
-        </Button>
-      )}
+        {showBackButton && onBack && (
+          <Button
+            onClick={onBack}
+            isDisabled={isLoading}
+            bg="#ff4d4d"
+            color="white"
+            _hover={{ bg: "#e60000" }}
+            _active={{ bg: "#cc0000" }}
+            size={buttonSize}
+            order={{ base: 2, md: 2 }}
+          >
+            Voltar
+          </Button>
+        )}
 
-      {onFinish && (
-        <Button
-          bg="#ff4d4d"
-          color="white"
-          _hover={{ bg: "#e60000" }}
-          onClick={onFinish}
-          isDisabled={isFinishDisabled || isLoading}
-          leftIcon={isLoading ? <Spinner size="sm" /> : undefined}
-        >
-          {isLoading ? 'Finalizando...' : finishButtonText}
-        </Button>
-      )}
-    </HStack>
+        {onNext && (
+          <Button
+            type="submit"
+            bg="#ff4d4d"
+            color="white"
+            _hover={{ bg: "#e60000" }}
+            _active={{ bg: "#cc0000" }}
+            isDisabled={isNextDisabled || isLoading}
+            size={buttonSize}
+            order={{ base: 1, md: 3 }}
+          >
+            {nextButtonText}
+          </Button>
+        )}
+
+        {onFinish && (
+          <Button
+            bg="#ff4d4d"
+            color="white"
+            _hover={{ bg: "#e60000" }}
+            _active={{ bg: "#cc0000" }}
+            onClick={onFinish}
+            isDisabled={isFinishDisabled || isLoading}
+            leftIcon={isLoading ? <Spinner size="sm" /> : undefined}
+            size={buttonSize}
+            order={{ base: 1, md: 3 }}
+          >
+            {isLoading ? 'Finalizando...' : finishButtonText}
+          </Button>
+        )}
+      </ButtonContainer>
+    </Box>
   );
 };
 

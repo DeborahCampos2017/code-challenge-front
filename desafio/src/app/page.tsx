@@ -1,13 +1,12 @@
 "use client"
 
 import { useEffect } from 'react';
-
+import { Box, Container, Heading, useToast } from '@chakra-ui/react';
+import { useFormStore } from './store/useFormStore';
 import Step1 from '@/shared/Step1';
 import Step2 from '@/shared/Step2';
 import Step3 from '@/shared/Step3';
 import StepIndicator from '@/shared/StepIndicator';
-import { Box, Container, Heading, useToast } from '@chakra-ui/react';
-import { useFormStore } from './store/useFormStore';
 
 const RegisterPage = () => {
   const { currentStep, apiState } = useFormStore();
@@ -40,14 +39,36 @@ const RegisterPage = () => {
   };
 
   return (
-    <Box bg="#ff4d4d" minH="100vh" py={8}>
-      <Container maxW="container.md">
-        <Box bg="white" p={8} borderRadius="lg" boxShadow="xl" border="1px" borderColor="#ff4d4d">
-          <Heading textAlign="center" mb={8} color="#ff4d4d">
+    <Box
+      minH="100vh"
+      bg={{ base: "gray.50", md: "gray.100" }}
+      py={{ base: 4, md: 8 }}
+      px={{ base: 4, md: 0 }}
+    >
+      <Container
+        maxW={{ base: "100%", sm: "md", md: "2xl", lg: "4xl" }}
+        centerContent
+      >
+        <Box
+          bg="white"
+          p={{ base: 4, sm: 6, md: 8 }}
+          borderRadius={{ base: "lg", md: "xl" }}
+          boxShadow={{ base: "md", md: "xl" }}
+          w="100%"
+          maxW={{ base: "100%", md: "800px" }}
+        >
+          <Heading
+            textAlign="center"
+            mb={{ base: 6, md: 8 }}
+            fontSize={{ base: "xl", sm: "2xl", md: "3xl" }}
+            color="gray.800"
+          >
             Cadastro de Usuário
           </Heading>
           <StepIndicator currentStep={currentStep} />
-          {renderCurrentStep()}
+          <Box mt={{ base: 4, md: 6 }}>
+            {renderCurrentStep()}
+          </Box>
         </Box>
       </Container>
     </Box>

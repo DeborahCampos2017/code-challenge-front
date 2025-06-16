@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Circle } from '@chakra-ui/react';
+import { Box, Flex, Text, Circle, useBreakpointValue } from '@chakra-ui/react';
 
 type StepIndicatorProps = {
   currentStep: number;
@@ -11,37 +11,64 @@ const steps = [
 ];
 
 const StepIndicator = ({ currentStep }: StepIndicatorProps) => {
+  const isMobile = useBreakpointValue({ base: true, md: false });
+  const stepSize = useBreakpointValue({ base: "32px", md: "40px" });
+  const fontSize = useBreakpointValue({ base: "xs", md: "sm" });
+  const titleMaxW = useBreakpointValue({ base: "60px", md: "80px" });
+  const lineWidth = useBreakpointValue({ base: "40px", md: "60px" });
+
   return (
-    <Flex justify="center" mb={8}>
-      {steps.map((step, index) => (
-        <Flex key={step.number} align="center" direction="column">
-          <Circle
-            size="40px"
-            bg={currentStep >= step.number ? '#ff4d4d' : 'gray.300'}
-            color="white"
-            fontWeight="bold"
-          >
-            {step.number}
-          </Circle>
-          <Text mt={2} fontSize="sm" textAlign="center" minW="200px" color='black'>
-            {step.title}
-          </Text>
-          {index < steps.length - 1 && (
-            <Box
-              position="absolute"
-              left="50%"
-              transform="translateX(-50%)"
-              mt="-20px"
-              ml="40px"
-              w="60px"
-              h="2px"
-              bg={currentStep > step.number ? '#ff4d4d' : 'gray.300'}
-              zIndex={-1}
-            />
-          )}
-        </Flex>
-      ))}
-    </Flex>
+    <Box mb={{ base: 6, md: 8 }} px={{ base: 2, md: 0 }}>
+      <Flex
+        justify="center"
+        align="center"
+        direction={{ base: "column", sm: "row" }}
+        gap={{ base: 4, sm: 0 }}
+      >
+        {steps.map((step, index) => (
+          <>
+            <Flex
+              align="center"
+              direction="column"
+              position="relative"
+              flex={{ base: "none", sm: "1" }}
+              maxW={{ base: "120px", sm: "none" }}
+            >
+              <Circle
+                size={stepSize}
+                bg={currentStep >= step.number ? '#ff4d4d' : 'gray.300'}
+                color="white"
+                fontWeight="bold"
+                fontSize={{ base: "sm", md: "md" }}
+                transition="all 0.3s ease"
+              >
+                {step.number}
+              </Circle>
+              <Text
+                mt={2}
+                fontSize={fontSize}
+                textAlign="center"
+                maxW={titleMaxW}
+                color={currentStep >= step.number ? '#ff4d4d' : 'gray.600'}
+                fontWeight={currentStep >= step.number ? 'semibold' : 'normal'}
+                lineHeight="1.2"
+              >
+                {step.title}
+              </Text>
+              {index < steps.length - 1 && !isMobile && (
+                <Box
+                  w={lineWidth}
+                  h="2px"
+                  bg={currentStep > step.number ? '#ff4d4d' : 'gray.300'}
+                  mx={2}
+                  transition="all 0.3s ease"
+                />
+              )}
+            </Flex>
+          </>
+        ))}
+      </Flex>
+    </Box>
   );
 };
 
