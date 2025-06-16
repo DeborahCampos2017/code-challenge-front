@@ -58,7 +58,7 @@ const Step3 = () => {
   return (
     <VStack spacing={6} align="stretch">
       <Box>
-        <Text fontSize="lg" fontWeight="bold" mb={4} color="orange.600">
+        <Text fontSize="lg" fontWeight="bold" mb={4} color="#ff4d4d">
           Dados Pessoais
         </Text>
         <VStack align="stretch" spacing={2}>
@@ -68,10 +68,10 @@ const Step3 = () => {
         </VStack>
       </Box>
 
-      <Divider borderColor="orange.200" />
+      <Divider borderColor="#ff4d4d" />
 
       <Box>
-        <Text fontSize="lg" fontWeight="bold" mb={4} color="orange.600">
+        <Text fontSize="lg" fontWeight="bold" mb={4} color="#ff4d4d">
           Endereço
         </Text>
         <VStack align="stretch" spacing={2}>
@@ -82,7 +82,7 @@ const Step3 = () => {
           <Text><strong style={{ color: '#DD6B20' }}>CEP:</strong> {addressData.zip_code}</Text>
         </VStack>
       </Box>
-      <Divider borderColor="orange.200" />
+      <Divider borderColor="#ff4d4d" />
       <FormControl>
         <Checkbox
           isChecked={terms_accepted}

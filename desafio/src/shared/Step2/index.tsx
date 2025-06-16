@@ -42,12 +42,12 @@ const Step2 = () => {
             <Field name="address">
               {({ field }: FormikFieldProps) => (
                 <FormControl isInvalid={!!(errors.address && touched.address)}>
-                  <FormLabel color="orange.600">Endereço</FormLabel>
+                  <FormLabel color="#ff4d4d">Endereço</FormLabel>
                   <Input
                     {...field}
                     placeholder="Digite seu endereço"
-                    focusBorderColor="orange.500"
-                    _hover={{ borderColor: 'orange.300' }}
+                    focusBorderColor="#ff4d4d"
+                    _hover={{ borderColor: '#ff4d4d' }}
                   />
                   <FormErrorMessage>{errors.address}</FormErrorMessage>
                 </FormControl>
@@ -57,12 +57,12 @@ const Step2 = () => {
             <Field name="number">
               {({ field }: FormikFieldProps) => (
                 <FormControl isInvalid={!!(errors.number && touched.number)}>
-                  <FormLabel color="orange.600">Número</FormLabel>
+                  <FormLabel color="#ff4d4d">Número</FormLabel>
                   <Input
                     {...field}
                     placeholder="Digite o número"
-                    focusBorderColor="orange.500"
-                    _hover={{ borderColor: 'orange.300' }}
+                    focusBorderColor="#ff4d4d"
+                    _hover={{ borderColor: '#ff4d4d' }}
                   />
                   <FormErrorMessage>{errors.number}</FormErrorMessage>
                 </FormControl>
@@ -72,12 +72,12 @@ const Step2 = () => {
             <Field name="city">
               {({ field }: FormikFieldProps) => (
                 <FormControl isInvalid={!!(errors.city && touched.city)}>
-                  <FormLabel color="orange.600">Cidade</FormLabel>
+                  <FormLabel color="#ff4d4d">Cidade</FormLabel>
                   <Input
                     {...field}
                     placeholder="Digite a cidade"
-                    focusBorderColor="orange.500"
-                    _hover={{ borderColor: 'orange.300' }}
+                    focusBorderColor="#ff4d4d"
+                    _hover={{ borderColor: '#ff4d4d' }}
                   />
                   <FormErrorMessage>{errors.city}</FormErrorMessage>
                 </FormControl>
@@ -87,12 +87,12 @@ const Step2 = () => {
             <Field name="state">
               {({ field }: FormikFieldProps) => (
                 <FormControl isInvalid={!!(errors.state && touched.state)}>
-                  <FormLabel color="orange.600">Estado</FormLabel>
+                  <FormLabel color="#ff4d4d">Estado</FormLabel>
                   <Select
                     {...field}
                     placeholder="Selecione o estado"
-                    focusBorderColor="orange.500"
-                    _hover={{ borderColor: 'orange.300' }}
+                    focusBorderColor="#ff4d4d"
+                    _hover={{ borderColor: '#ff4d4d' }}
                   >
                     {brazilianStates.map((state) => (
                       <option key={state} value={state}>
@@ -108,12 +108,12 @@ const Step2 = () => {
             <Field name="zip_code">
               {({ field }: FormikFieldProps) => (
                 <FormControl isInvalid={!!(errors.zip_code && touched.zip_code)}>
-                  <FormLabel color="orange.600">CEP</FormLabel>
+                  <FormLabel color="#ff4d4d">CEP</FormLabel>
                   <Input
                     {...field}
                     placeholder="XXXXX-XXX"
-                    focusBorderColor="orange.500"
-                    _hover={{ borderColor: 'orange.300' }}
+                    focusBorderColor="#ff4d4d"
+                    _hover={{ borderColor: '#ff4d4d' }}
                     onChange={(e) => {
                       const maskedValue = zipCodeMask(e.target.value);
                       setFieldValue('zip_code', maskedValue);

@@ -32,12 +32,12 @@ const Step1 = () => {
             <Field name="full_name">
               {({ field }: FormikFieldProps) => (
                 <FormControl isInvalid={!!(errors.full_name && touched.full_name)}>
-                  <FormLabel color="orange.600">Nome Completo</FormLabel>
+                  <FormLabel color="#ff4d4d">Nome Completo</FormLabel>
                   <Input
                     {...field}
                     placeholder="Digite seu nome completo"
-                    focusBorderColor="orange.500"
-                    _hover={{ borderColor: 'orange.300' }}
+                    focusBorderColor="#ff4d4d"
+                    _hover={{ borderColor: '#ff4d4d' }}
                   />
                   <FormErrorMessage>{errors.full_name}</FormErrorMessage>
                 </FormControl>
@@ -46,13 +46,13 @@ const Step1 = () => {
             <Field name="email">
               {({ field }: FormikFieldProps) => (
                 <FormControl isInvalid={!!(errors.email && touched.email)}>
-                  <FormLabel color="orange.600">Email</FormLabel>
+                  <FormLabel color="#ff4d4d">Email</FormLabel>
                   <Input
                     {...field}
                     type="email"
                     placeholder="Digite seu email"
-                    focusBorderColor="orange.500"
-                    _hover={{ borderColor: 'orange.300' }}
+                    focusBorderColor="#ff4d4d"
+                    _hover={{ borderColor: '#ff4d4d' }}
                   />
                   <FormErrorMessage>{errors.email}</FormErrorMessage>
                 </FormControl>
@@ -61,12 +61,12 @@ const Step1 = () => {
             <Field name="phone">
               {({ field }: FormikFieldProps) => (
                 <FormControl isInvalid={!!(errors.phone && touched.phone)}>
-                  <FormLabel color="orange.600">Telefone</FormLabel>
+                  <FormLabel color="#ff4d4d">Telefone</FormLabel>
                   <Input
                     {...field}
                     placeholder="(XX) XXXXX-XXXX"
-                    focusBorderColor="orange.500"
-                    _hover={{ borderColor: 'orange.300' }}
+                    focusBorderColor="#ff4d4d"
+                    _hover={{ borderColor: '#ff4d4d' }}
                     onChange={(e) => {
                       const maskedValue = phoneMask(e.target.value);
                       setFieldValue('phone', maskedValue);
