@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useEffect } from 'react';
 import { Box, Container, Heading, useToast } from '@chakra-ui/react';
@@ -46,6 +46,7 @@ const RegisterPage = () => {
       px={{ base: 4, md: 0 }}
     >
       <Container
+        p={{ base: 4, sm: 6, md: 2 }}
         maxW={{ base: "100%", sm: "md", md: "2xl", lg: "4xl" }}
         centerContent
       >

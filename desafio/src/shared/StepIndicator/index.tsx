@@ -11,7 +11,6 @@ const steps = [
 ];
 
 const StepIndicator = ({ currentStep }: StepIndicatorProps) => {
-  const isMobile = useBreakpointValue({ base: true, md: false });
   const stepSize = useBreakpointValue({ base: "32px", md: "40px" });
   const fontSize = useBreakpointValue({ base: "xs", md: "sm" });
 
@@ -23,43 +22,35 @@ const StepIndicator = ({ currentStep }: StepIndicatorProps) => {
         direction={{ base: "column", sm: "row" }}
         gap={{ base: 4, sm: 40 }}
       >
-        {steps.map((step, index) => (
-          <>
-            <Flex
-              align="center"
-              direction="column"
-              position="relative"
-              flex={{ base: "none", sm: "none" }}
-              maxW={{ base: "120px", sm: "none" }}
+        {steps.map((step) => (
+          <Flex
+            key={step.number}
+            align="center"
+            direction="column"
+            position="relative"
+            flex={{ base: "none", sm: "none" }}
+            maxW={{ base: "120px", sm: "none" }}
+          >
+            <Circle
+              size={stepSize}
+              bg={currentStep >= step.number ? '#ff4d4d' : 'gray.300'}
+              color="white"
+              fontWeight="bold"
+              fontSize={{ base: "sm", md: "md" }}
+              transition="all 0.3s ease"
             >
-              <Circle
-                size={stepSize}
-                bg={currentStep >= step.number ? '#ff4d4d' : 'gray.300'}
-                color="white"
-                fontWeight="bold"
-                fontSize={{ base: "sm", md: "md" }}
-                transition="all 0.3s ease"
-              >
-                {step.number}
-              </Circle>
-              <Text
-                mt={2}
-                fontSize={fontSize}
-                textAlign="center"
-                color={currentStep >= step.number ? '#ff4d4d' : 'gray.600'}
-                fontWeight={currentStep >= step.number ? 'semibold' : 'normal'}
-              >
-                {step.title}
-              </Text>
-              {index < steps.length - 1 && !isMobile && (
-                <Box
-                  bg={currentStep > step.number ? '#ff4d4d' : 'gray.300'}
-                  mx={2}
-                  transition="all 0.3s ease"
-                />
-              )}
-            </Flex>
-          </>
+              {step.number}
+            </Circle>
+            <Text
+              mt={2}
+              fontSize={fontSize}
+              textAlign="center"
+              color={currentStep >= step.number ? '#ff4d4d' : 'gray.600'}
+              fontWeight={currentStep >= step.number ? 'semibold' : 'normal'}
+            >
+              {step.title}
+            </Text>
+          </Flex>
         ))}
       </Flex>
     </Box>
