@@ -1,19 +1,28 @@
-import { AddressData } from '@/app/store/types';
-import { useUserStore } from '@/app/store/useUserStore';
+import { AddressData, useFormStore } from '@/app/store/useFormStore';
+import { FormikFieldProps } from '@/app/types';
 import { addressDataSchema } from '@/app/validationSchemas';
 import {
   FormControl,
   FormErrorMessage,
-  FormLabel,
-  Input,
-  VStack,
+  FormLabel, Input, Select,
+  VStack
 } from '@chakra-ui/react';
-import { Field, FieldProps, Form, Formik } from 'formik';
-import { ButtonsFooter } from '../ButtonsFooter';
-import { cepMask } from '../Masks';
+import { Field, Form, Formik } from 'formik';
+import { zipCodeMask } from '../Masks';
+import StepButtons from '../StepButtons';
 
-export const Step2 = () => {
-  const { addressData, setAddressData, setCurrentStep, resetForm } = useUserStore();
+const brazilianStates = [
+  'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA',
+  'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN',
+  'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
+];
+
+const Step2 = () => {
+  const { addressData, setAddressData, setCurrentStep, resetForm } = useFormStore();
+
+  const handleBack = () => {
+    setCurrentStep(1);
+  };
 
   const handleNext = (values: AddressData) => {
     setAddressData(values);
@@ -25,93 +34,109 @@ export const Step2 = () => {
       initialValues={addressData}
       validationSchema={addressDataSchema}
       onSubmit={handleNext}
-      enableReinitialize={true}
+      enableReinitialize
     >
-      {({ errors, touched, setFieldValue, values, isValid }) => {
-        const hasAllFields = values.endereco && values.numero && values.bairro &&
-          values.cidade && values.estado && values.cep;
-        const isFormValid = isValid && hasAllFields;
+      {({ errors, touched, isValid, setFieldValue, values }) => (
+        <Form>
+          <VStack spacing={4}>
+            <Field name="address">
+              {({ field }: FormikFieldProps) => (
+                <FormControl isInvalid={!!(errors.address && touched.address)}>
+                  <FormLabel color="orange.600">Endereço</FormLabel>
+                  <Input
+                    {...field}
+                    placeholder="Digite seu endereço"
+                    focusBorderColor="orange.500"
+                    _hover={{ borderColor: 'orange.300' }}
+                  />
+                  <FormErrorMessage>{errors.address}</FormErrorMessage>
+                </FormControl>
+              )}
+            </Field>
 
-        return (
-          <Form>
-            <VStack spacing={4}>
-              <Field name="endereco">
-                {({ field }: FieldProps<string>) => (
-                  <FormControl isInvalid={!!(errors.endereco && touched.endereco)}>
-                    <FormLabel>Endereço</FormLabel>
-                    <Input {...field} placeholder="Digite seu endereço" />
-                    <FormErrorMessage>{errors.endereco}</FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
-              <Field name="numero">
-                {({ field }: FieldProps<string>) => (
-                  <FormControl isInvalid={!!(errors.numero && touched.numero)}>
-                    <FormLabel>Número</FormLabel>
-                    <Input {...field} placeholder="Digite o número" />
-                    <FormErrorMessage>{errors.numero}</FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
-              <Field name="bairro">
-                {({ field }: FieldProps<string>) => (
-                  <FormControl isInvalid={!!(errors.bairro && touched.bairro)}>
-                    <FormLabel>Bairro</FormLabel>
-                    <Input {...field} placeholder="Digite o bairro" />
-                    <FormErrorMessage>{errors.bairro}</FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
-              <Field name="cidade">
-                {({ field }: FieldProps<string>) => (
-                  <FormControl isInvalid={!!(errors.cidade && touched.cidade)}>
-                    <FormLabel>Cidade</FormLabel>
-                    <Input {...field} placeholder="Digite a cidade" />
-                    <FormErrorMessage>{errors.cidade}</FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
-              <Field name="estado">
-                {({ field }: FieldProps<string>) => (
-                  <FormControl isInvalid={!!(errors.estado && touched.estado)}>
-                    <FormLabel>Estado</FormLabel>
-                    <Input
-                      {...field}
-                      placeholder="Digite a sigla do estado (ex: SP)"
-                      maxLength={2}
-                      onChange={(e) => {
-                        setFieldValue('estado', e.target.value.toUpperCase());
-                      }}
-                    />
-                    <FormErrorMessage>{errors.estado}</FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
-              <Field name="cep">
-                {({ field }: FieldProps<string>) => (
-                  <FormControl isInvalid={!!(errors.cep && touched.cep)}>
-                    <FormLabel>CEP</FormLabel>
-                    <Input
-                      {...field}
-                      placeholder="XXXXX-XXX"
-                      maxLength={9}
-                      onChange={(e) => {
-                        const masked = cepMask(e.target.value);
-                        setFieldValue('cep', masked);
-                      }}
-                    />
-                    <FormErrorMessage>{errors.cep}</FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
-              <ButtonsFooter
-                isFormValid={!!isFormValid}
-                resetForm={resetForm}
-                currentStepValue={2} />
-            </VStack>
-          </Form>
-        );
-      }}
+            <Field name="number">
+              {({ field }: FormikFieldProps) => (
+                <FormControl isInvalid={!!(errors.number && touched.number)}>
+                  <FormLabel color="orange.600">Número</FormLabel>
+                  <Input
+                    {...field}
+                    placeholder="Digite o número"
+                    focusBorderColor="orange.500"
+                    _hover={{ borderColor: 'orange.300' }}
+                  />
+                  <FormErrorMessage>{errors.number}</FormErrorMessage>
+                </FormControl>
+              )}
+            </Field>
+
+            <Field name="city">
+              {({ field }: FormikFieldProps) => (
+                <FormControl isInvalid={!!(errors.city && touched.city)}>
+                  <FormLabel color="orange.600">Cidade</FormLabel>
+                  <Input
+                    {...field}
+                    placeholder="Digite a cidade"
+                    focusBorderColor="orange.500"
+                    _hover={{ borderColor: 'orange.300' }}
+                  />
+                  <FormErrorMessage>{errors.city}</FormErrorMessage>
+                </FormControl>
+              )}
+            </Field>
+
+            <Field name="state">
+              {({ field }: FormikFieldProps) => (
+                <FormControl isInvalid={!!(errors.state && touched.state)}>
+                  <FormLabel color="orange.600">Estado</FormLabel>
+                  <Select
+                    {...field}
+                    placeholder="Selecione o estado"
+                    focusBorderColor="orange.500"
+                    _hover={{ borderColor: 'orange.300' }}
+                  >
+                    {brazilianStates.map((state) => (
+                      <option key={state} value={state}>
+                        {state}
+                      </option>
+                    ))}
+                  </Select>
+                  <FormErrorMessage>{errors.state}</FormErrorMessage>
+                </FormControl>
+              )}
+            </Field>
+
+            <Field name="zip_code">
+              {({ field }: FormikFieldProps) => (
+                <FormControl isInvalid={!!(errors.zip_code && touched.zip_code)}>
+                  <FormLabel color="orange.600">CEP</FormLabel>
+                  <Input
+                    {...field}
+                    placeholder="XXXXX-XXX"
+                    focusBorderColor="orange.500"
+                    _hover={{ borderColor: 'orange.300' }}
+                    onChange={(e) => {
+                      const maskedValue = zipCodeMask(e.target.value);
+                      setFieldValue('zip_code', maskedValue);
+                    }}
+                    maxLength={9}
+                  />
+                  <FormErrorMessage>{errors.zip_code}</FormErrorMessage>
+                </FormControl>
+              )}
+            </Field>
+            <StepButtons
+              resetForm={resetForm}
+              onBack={handleBack}
+              onNext
+              showBackButton={true}
+              isNextDisabled={!isValid || !values.address || !values.number || !values.city || !values.state || !values.zip_code}
+              nextButtonText="Próximo"
+            />
+          </VStack>
+        </Form>
+      )}
     </Formik>
   );
 };
+
+export default Step2;

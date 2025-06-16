@@ -1,20 +1,18 @@
-import { PersonalData } from '@/app/store/types';
-import { useUserStore } from '@/app/store/useUserStore';
+import { PersonalData, useFormStore } from '@/app/store/useFormStore';
+import { FormikFieldProps } from '@/app/types';
 import { personalDataSchema } from '@/app/validationSchemas';
 import {
   FormControl,
   FormErrorMessage,
-  FormLabel,
-  Input,
-  Select,
-  VStack,
+  FormLabel, Input,
+  VStack
 } from '@chakra-ui/react';
-import { Field, FieldProps, Form, Formik } from 'formik';
-import { ButtonsFooter } from '../ButtonsFooter';
+import { Field, Form, Formik } from 'formik';
 import { phoneMask } from '../Masks';
+import StepButtons from '../StepButtons';
 
-export const Step1 = () => {
-  const { personalData, setPersonalData, setCurrentStep, resetForm } = useUserStore();
+const Step1 = () => {
+  const { personalData, setPersonalData, setCurrentStep, resetForm } = useFormStore();
 
   const handleNext = (values: PersonalData) => {
     setPersonalData(values);
@@ -26,71 +24,70 @@ export const Step1 = () => {
       initialValues={personalData}
       validationSchema={personalDataSchema}
       onSubmit={handleNext}
-      enableReinitialize={true}
+      enableReinitialize
     >
-      {({ errors, touched, setFieldValue, values, isValid }) => {
-        const hasAllFields = values.nome && values.email && values.telefone && values.genero;
-        const isFormValid = isValid && hasAllFields;
-
-        return (
-          <Form>
-            <VStack spacing={4}>
-              <Field name="nome">
-                {({ field }: FieldProps<string>) => (
-                  <FormControl isInvalid={!!(errors.nome && touched.nome)}>
-                    <FormLabel>Nome</FormLabel>
-                    <Input {...field} placeholder="Digite seu nome completo" />
-                    <FormErrorMessage>{errors.nome}</FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
-
-              <Field name="email">
-                {({ field }: FieldProps<string>) => (
-                  <FormControl isInvalid={!!(errors.email && touched.email)}>
-                    <FormLabel>Email</FormLabel>
-                    <Input {...field} type="email" placeholder="Digite seu email" />
-                    <FormErrorMessage>{errors.email}</FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
-
-              <Field name="telefone">
-                {({ field }: FieldProps<string>) => (
-                  <FormControl isInvalid={!!(errors.telefone && touched.telefone)}>
-                    <FormLabel>Telefone</FormLabel>
-                    <Input
-                      {...field}
-                      placeholder="(XX) XXXXX-XXXX"
-                      maxLength={15}
-                      onChange={(e) => {
-                        const masked = phoneMask(e.target.value);
-                        setFieldValue('telefone', masked);
-                      }}
-                    />
-                    <FormErrorMessage>{errors.telefone}</FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
-              <Field name="genero">
-                {({ field }: FieldProps<string>) => (
-                  <FormControl isInvalid={!!(errors.genero && touched.genero)}>
-                    <FormLabel>Gênero</FormLabel>
-                    <Select {...field} placeholder="Selecione seu gênero">
-                      <option value="masculino">Masculino</option>
-                      <option value="feminino">Feminino</option>
-                      <option value="outro">Outro</option>
-                      <option value="prefiro-nao-informar">Prefiro não informar</option>
-                    </Select>
-                    <FormErrorMessage>{errors.genero}</FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
-              <ButtonsFooter isFormValid={!!isFormValid} resetForm={resetForm} />
-            </VStack>
-          </Form>
-        );
-      }}
+      {({ errors, touched, isValid, setFieldValue, values }) => (
+        <Form>
+          <VStack spacing={4}>
+            <Field name="full_name">
+              {({ field }: FormikFieldProps) => (
+                <FormControl isInvalid={!!(errors.full_name && touched.full_name)}>
+                  <FormLabel color="orange.600">Nome Completo</FormLabel>
+                  <Input
+                    {...field}
+                    placeholder="Digite seu nome completo"
+                    focusBorderColor="orange.500"
+                    _hover={{ borderColor: 'orange.300' }}
+                  />
+                  <FormErrorMessage>{errors.full_name}</FormErrorMessage>
+                </FormControl>
+              )}
+            </Field>
+            <Field name="email">
+              {({ field }: FormikFieldProps) => (
+                <FormControl isInvalid={!!(errors.email && touched.email)}>
+                  <FormLabel color="orange.600">Email</FormLabel>
+                  <Input
+                    {...field}
+                    type="email"
+                    placeholder="Digite seu email"
+                    focusBorderColor="orange.500"
+                    _hover={{ borderColor: 'orange.300' }}
+                  />
+                  <FormErrorMessage>{errors.email}</FormErrorMessage>
+                </FormControl>
+              )}
+            </Field>
+            <Field name="phone">
+              {({ field }: FormikFieldProps) => (
+                <FormControl isInvalid={!!(errors.phone && touched.phone)}>
+                  <FormLabel color="orange.600">Telefone</FormLabel>
+                  <Input
+                    {...field}
+                    placeholder="(XX) XXXXX-XXXX"
+                    focusBorderColor="orange.500"
+                    _hover={{ borderColor: 'orange.300' }}
+                    onChange={(e) => {
+                      const maskedValue = phoneMask(e.target.value);
+                      setFieldValue('phone', maskedValue);
+                    }}
+                    maxLength={15}
+                  />
+                  <FormErrorMessage>{errors.phone}</FormErrorMessage>
+                </FormControl>
+              )}
+            </Field>
+            <StepButtons
+              resetForm={resetForm}
+              onNext
+              isNextDisabled={!isValid || !values.full_name || !values.email || !values.phone}
+              nextButtonText="Próximo"
+            />
+          </VStack>
+        </Form>
+      )}
     </Formik>
   );
 };
+
+export default Step1;
